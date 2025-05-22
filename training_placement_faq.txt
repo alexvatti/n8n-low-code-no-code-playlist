@@ -1,0 +1,100 @@
+1. Q: What courses do you offer for beginners in Python and Machine Learning?
+A: We offer beginner-friendly courses in Python programming, Machine Learning basics, and data preprocessing. Each course includes hands-on projects and interview prep.
+2. Q: Are the courses online or offline?
+A: All courses are online with live instructor-led sessions and lifetime access to recordings.
+3. Q: Is there a certificate provided after course completion?
+A: Yes, a verifiable course completion certificate is provided.
+4. Q: Do you offer a free demo session?
+A: Yes! We offer a free demo session before you enroll in any program.
+5. Q: Can I access course materials after completion?
+A: Yes, lifetime access to course materials and recordings is provided.
+6. Q: Do you provide placement assistance?
+A: Absolutely! We offer 1:1 resume reviews, mock interviews, job referrals, and guidance from industry mentors.
+7. Q: How successful are your past students in getting placed?
+A: Over 85% of our learners have secured jobs in top MNCs and startups within 3–6 months of completing training.
+8. Q: Do you help with interview preparation?
+A: Yes, we provide detailed interview prep including DSA, mock interviews, HR rounds, and technical interview Q&A.
+9. Q: What is the average salary students get after the course?
+A: On average, freshers get ₹4–6 LPA while experienced candidates see hikes of 40–70%.
+10. Q: Can non-IT students join and get placed?
+A: Definitely. We’ve helped students from commerce, mechanical, civil backgrounds enter IT via our training and transition roadmap.
+11. Q: Is prior coding knowledge needed to learn Python?
+A: No, Python is beginner-friendly. We teach from scratch.
+12. Q: What real-world projects will I work on in Python?
+A: Projects like calculator apps, web scraping tools, automation scripts, and Flask-based web apps.
+13. Q: Do you cover object-oriented programming in Python?
+A: Yes, OOP concepts like classes, inheritance, polymorphism are covered in-depth.
+14. Q: Will I learn how to use Python for data analysis?
+A: Yes, we cover NumPy, Pandas, and Matplotlib extensively for data handling and visualization.
+15. Q: Is Python enough to get a job in data science?
+A: Python is essential, but combining it with ML, SQL, and projects significantly increases job chances.
+16. Q: What algorithms will I learn in the ML course?
+A: You’ll learn linear regression, decision trees, SVM, clustering, Naive Bayes, random forests, and more.
+17. Q: Are mathematical concepts covered in ML training?
+A: Yes, we cover the basics of statistics, linear algebra, and calculus as needed.
+18. Q: Will I learn to build end-to-end ML projects?
+A: Yes, from data preprocessing to model deployment using tools like Flask or Streamlit.
+19. Q: Is there any hands-on Kaggle or real-world dataset work?
+A: Absolutely! Projects include Kaggle datasets, real-time data from APIs, and company-level use cases.
+20. Q: How is the machine learning course structured?
+A: It starts with Python foundations, then moves to ML theory, coding, real projects, and deployment.
+21. Q: What frameworks are used in Deep Learning training?
+A: We use TensorFlow and PyTorch for model development and training.
+22. Q: Will I learn to build neural networks from scratch?
+A: Yes, we teach you to build and train neural nets using both libraries and low-level code.
+23. Q: Do you cover CNNs and RNNs?
+A: Yes, in detail. We also work on image classification, text generation, and sequence prediction.
+24. Q: Are GPUs necessary to learn Deep Learning?
+A: Not mandatory. We use Google Colab and Kaggle, which provide free GPU resources.
+25. Q: Do you teach model tuning and regularization?
+A: Yes, concepts like dropout, batch norm, learning rate tuning are part of the course.
+26. Q: What are transformers in NLP?
+A: Transformers are models that use attention mechanisms for understanding language context, such as BERT or GPT.
+27. Q: Will I get to work with pre-trained models like BERT or GPT?
+A: Yes, we teach Hugging Face Transformers and how to fine-tune BERT, GPT, and similar models.
+28. Q: Can I build chatbots using these models?
+A: Definitely! You’ll learn how to create domain-specific chatbots using LLMs and LangChain.
+29. Q: Is knowledge of NLP required before learning Transformers?
+A: Basic NLP knowledge is helpful but we provide a primer to get you started.
+30. Q: Will I learn how to deploy LLM models?
+A: Yes, we cover how to deploy LLMs using Streamlit, FastAPI, and cloud platforms.
+31. Q: Are there projects in the course?
+A: Yes, each module includes 2–3 real-world projects.
+32. Q: Can I showcase these projects on GitHub?
+A: Absolutely! We guide you on how to build and structure your GitHub portfolio.
+33. Q: Do you offer internship certificates?
+A: Yes, we provide internship letters for project-based training.
+34. Q: What kind of projects do LLM students work on?
+A: Projects like summarization bots, legal document generation, Q&A systems, and chatbots.
+35. Q: Are group projects encouraged?
+A: Yes, we encourage team projects to simulate real work environments.
+36. Q: I’m from a non-technical background. Can I still become a data scientist?
+A: Yes! We’ve helped many non-tech grads switch careers with guided learning and mentorship.
+37. Q: How much time does it take to become job-ready?
+A: Around 4–6 months of consistent learning and project work.
+38. Q: What roles can I apply for after this training?
+A: Data Analyst, ML Engineer, Python Developer, AI Engineer, LLM Engineer, and more.
+39. Q: Do you offer domain-specific AI training (healthcare, finance, etc.)?
+A: Yes, we have modules focused on domain-based ML applications.
+40. Q: Will I learn how to explain models in interviews?
+A: Yes, we teach how to interpret results and explain model decisions (Explainable AI).
+41. Q: What tools and libraries are covered?
+A: NumPy, Pandas, Scikit-learn, TensorFlow, PyTorch, Hugging Face, LangChain, Flask, and Streamlit.
+42. Q: Do you teach model deployment?
+A: Yes, including deploying on Heroku, AWS, and using FastAPI or Streamlit.
+43. Q: Will I learn MLOps tools?
+A: Basic MLOps tools like MLflow, DVC, and model monitoring are introduced in the advanced course.
+44. Q: Do you teach how to use Hugging Face?
+A: Yes, from loading models to fine-tuning and sharing your own models on the Hub.
+45. Q: Can I integrate LLMs with web apps?
+A: Yes, we show how to build full-stack apps with LLMs using Flask or React.
+46. Q: What if I miss a live session?
+A: Don’t worry! You can watch the recording anytime.
+47. Q: Is there a refund policy?
+A: Yes, if you're not satisfied after the first week, we offer a refund.
+48. Q: What payment methods are accepted?
+A: UPI, Debit/Credit cards, Net banking, and EMI options for higher-tier programs.
+49. Q: Is there a WhatsApp or email support group?
+A: Yes, we have dedicated learner communities and a support team available 24/7.
+50. Q: How do I enroll and get started?
+A: Just click "Enroll Now" on our website or message us directly—we’ll guide you step-by-step.
