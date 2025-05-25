@@ -1,0 +1,154 @@
+{
+  "name": "Lead-Generation-ChatBot",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Ratan. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        -240
+      ],
+      "id": "838478c1-7555-4c6b-807c-85c4ae971c1b",
+      "name": "When chat message received",
+      "webhookId": "dfcdafd7-702f-40c4-a0e4-5f79bd83cc09"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant for an AI/ML/DL/DS Training and Placement chatbot.\n\nYour primary goal is to assist users with their queries, provide them with helpful information, and then collect their Name and Phone Number to generate a lead. \nThis lead is automatically sent via Gmail using n8n.\n\n🎯 Conversational Flow:\nIntroduction:\nPolitely introduce yourself and ask how you can assist the user.\n\nIssue Intake:\nAsk 1–2 simple questions to understand their interest or problem (e.g., Are they looking for training? Placement assistance? Resume help?).\n\nApologize (if there's an issue) and Ask for Name:\nAcknowledge any concerns or confusion and kindly request their name.\n\nAsk for Phone Number:\nAfter getting the name, ask for their phone number to help the team follow up.\n\nConfirm Follow-Up:\nAssure the user that someone from the team will reach out shortly."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -80,
+        -240
+      ],
+      "id": "a38bd830-1f38-476e-bace-e822c36ae72e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -120,
+        -20
+      ],
+      "id": "c49810d6-1f80-4112-9765-97098d52fdc4",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Dl6JBIeW22jd5S4q",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        20,
+        -20
+      ],
+      "id": "64bb2b9f-9e4c-4958-8e9a-a79210017042",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Call this tool with the name, phone/mobile number",
+        "sendTo": " alexembeddedprojects@gmail.com",
+        "subject": "New Lead Request",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        180,
+        -20
+      ],
+      "id": "08d04f46-30a8-4498-ace9-f1264bd86e10",
+      "name": "Gmail",
+      "webhookId": "d841c53b-7b5c-47e6-bdf3-d694bc09e9da",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "h8KW30QbE6GlR56m",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c7c4feb0-8f38-42dc-a120-b75e82b97e3e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "VHn78C4IJLcKaNXp",
+  "tags": []
+}
