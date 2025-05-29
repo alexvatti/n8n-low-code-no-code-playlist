@@ -1,0 +1,187 @@
+{
+  "name": "webscraping-IMDB",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        -180
+      ],
+      "id": "8bc6b267-85f3-4dd2-8efc-e2b2100b7f9c",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "= {{ $json.urls }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        -180
+      ],
+      "id": "40137a9f-93ee-4730-aed8-7a47840d5e13",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "span.hero__primary-text[data-testid=\"hero__primary-text\"]"
+            },
+            {
+              "key": "Rating",
+              "cssSelector": "span.sc-d541859f-1.imUuxf"
+            },
+            {
+              "key": "Plot",
+              "cssSelector": "span.sc-e32edc92-2.hREhQQ[role=\"presentation\"][data-testid=\"plot-xl\"]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        -180
+      ],
+      "id": "fffc4361-80ec-4b81-b1e4-0e8611ac19de",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "14465055-0c05-48db-841a-fea3ab218b97",
+              "name": "urls",
+              "value": "[     \"https://www.imdb.com/title/tt15398776/\",     \"https://www.imdb.com/title/tt9362722\",     \"https://www.imdb.com/title/tt15239678\",     \"https://www.imdb.com/title/tt29623480\",     \"https://www.imdb.com/title/tt1745960\" ]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        -180
+      ],
+      "id": "96b47efa-a0c6-4343-a04a-ed8ed4864a81",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urls",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        -180
+      ],
+      "id": "1bbf9ed1-50e1-4afd-845d-e9f57a730b05",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        380,
+        -180
+      ],
+      "id": "fcbf9508-27e7-4a45-acad-155e5c0fcd4a",
+      "name": "Convert to File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a808c766-6c74-491c-9b15-3e0fe9778631",
+  "meta": {
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "vPglL9ONYMSisjUF",
+  "tags": []
+}
