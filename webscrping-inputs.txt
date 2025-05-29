@@ -1,0 +1,24 @@
+urls = [
+    "https://www.imdb.com/title/tt15398776/",
+    "https://www.imdb.com/title/tt9362722",
+    "https://www.imdb.com/title/tt15239678",
+    "https://www.imdb.com/title/tt29623480",
+    "https://www.imdb.com/title/tt1745960"
+]
+
+# Define headers
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+}
+
+<span class="hero__primary-text" data-testid="hero__primary-text">Fight Club</span>
+
+span.hero__primary-text[data-testid="hero__primary-text"]
+
+<span class="sc-d541859f-1 imUuxf">8.8</span>
+
+span.sc-d541859f-1.imUuxf
+
+<span role="presentation" data-testid="plot-xl" class="sc-e32edc92-2 hREhQQ">An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</span>
+
+span.sc-e32edc92-2.hREhQQ[role="presentation"][data-testid="plot-xl"]
