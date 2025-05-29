@@ -1,0 +1,131 @@
+{
+  "name": "HTTP-Request-API",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Website URL",
+        "formDescription": "Website URL",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "placeholder": "Website URL"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -340,
+        -160
+      ],
+      "id": "dde6d24d-2d19-48e0-ac61-6b2aeeb1fb6c",
+      "name": "On form submission",
+      "webhookId": "06e17cde-6b02-492d-80f3-8d5fc6a367cf"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -120,
+        -160
+      ],
+      "id": "260f9442-16d3-46a4-9187-fed24d272690",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant in summarizing the website data into 10 lines max in simple english."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        100,
+        -160
+      ],
+      "id": "981cc353-621c-40a8-a6b8-aa5cdcf214d6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        0
+      ],
+      "id": "b3f18c13-bfa2-43c9-ba3f-5916f6d48228",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Dl6JBIeW22jd5S4q",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "56380ff3-4b68-47e2-a7e8-10b053b09177",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "9S5QsMhkK6UCzjGr",
+  "tags": []
+}

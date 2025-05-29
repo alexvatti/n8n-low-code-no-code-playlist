@@ -1,0 +1,148 @@
+{
+  "name": "HTTP-Weather-API",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Enter City Name",
+        "formDescription": "Enter City Name",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "placeholder": "Enter City Name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -220,
+        -60
+      ],
+      "id": "29831a03-b865-4d57-bf08-ce2c589aacba",
+      "name": "On form submission",
+      "webhookId": "e418c52e-d078-462c-ac0b-798308d4164e"
+    },
+    {
+      "parameters": {
+        "url": "http://api.weatherapi.com/v1/current.json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "a42b4daa2d4b4fbcb76120351252605"
+            },
+            {
+              "name": "q",
+              "value": "={{ $json.data }}"
+            },
+            {
+              "name": "aqi",
+              "value": "no"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        -60
+      ],
+      "id": "e4405a95-7e4b-4dcb-8d0c-5d06a53d89c9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant in summarizing weather data into 5 to 10 lines in simple english language."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        220,
+        -60
+      ],
+      "id": "29fa5860-00b4-453f-9c2a-c763225c0a3a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        100
+      ],
+      "id": "62c223de-6da6-4f30-81f3-d6a0d5de2714",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Dl6JBIeW22jd5S4q",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0f5b8968-e4cd-4712-a623-d8a77376ba3c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "YeICqZIJvQF2dZ0d",
+  "tags": []
+}
