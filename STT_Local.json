@@ -1,0 +1,93 @@
+{
+  "name": "STT-Local",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-1"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        -120
+      ],
+      "id": "4cbc9b39-c375-49e8-a1e0-cb0eab50f7ee",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "formTitle": "STT",
+        "formDescription": "STT",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "acceptFileTypes": ".MP3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        -120
+      ],
+      "id": "3c2a5114-cd00-4268-9f58-241c1e6b4050",
+      "name": "On form submission",
+      "webhookId": "0659a8f1-813e-4c17-9432-4e1ce3eb870f"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b8cc1e5c-5121-4035-9421-5db600aebcd7",
+  "meta": {
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "tTcWT5Jemu5DPqGc",
+  "tags": []
+}

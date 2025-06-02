@@ -1,0 +1,76 @@
+{
+  "name": "FTP Upload",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "FTP File",
+        "formDescription": "FTP File",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        -60
+      ],
+      "id": "9eb397f2-9394-4015-ae44-82866d94ae50",
+      "name": "On form submission",
+      "webhookId": "00f183ca-67d6-4513-8795-345faa157e4a"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "path": "/text-analyzer/alex.pdf"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        -60
+      ],
+      "id": "b043b684-1f56-475d-a358-cd4e57192c4c",
+      "name": "FTP",
+      "alwaysOutputData": true,
+      "credentials": {
+        "ftp": {
+          "id": "z7sijRCz3WaFvUUj",
+          "name": "FTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "87692065-ac84-4fb3-bea1-58a12f5099dc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "X0YAWnmv4aVCXoHt",
+  "tags": []
+}

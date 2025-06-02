@@ -1,0 +1,92 @@
+{
+  "name": "FTP-list-download",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -120
+      ],
+      "id": "29c64dcf-8023-46fd-a81f-22d2396a5db3",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/text-analyzer",
+        "recursive": true
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        100,
+        -140
+      ],
+      "id": "e0e51e6a-9a8b-439b-bba2-5dcecf8d625e",
+      "name": "FTP",
+      "alwaysOutputData": true,
+      "credentials": {
+        "ftp": {
+          "id": "cJWJjAR6gs8yuT99",
+          "name": "FTP account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "/text-analyzer/resume"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        100,
+        60
+      ],
+      "id": "d257972e-9f4b-4e5f-836a-56e14d2cbe48",
+      "name": "FTP1",
+      "credentials": {
+        "ftp": {
+          "id": "z7sijRCz3WaFvUUj",
+          "name": "FTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FTP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "30efa07b-de9c-441c-9c4d-8120d8a8b6c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "eM6IsC3tjnxbupZB",
+  "tags": []
+}

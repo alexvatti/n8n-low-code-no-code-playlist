@@ -1,0 +1,110 @@
+{
+  "name": "Audio-Text-WGET",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-1"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        100,
+        -200
+      ],
+      "id": "c899cfe3-5078-454a-abd6-2393e29e2cd3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -240
+      ],
+      "id": "12c230a8-0a8c-49a8-a73a-2995ef766030",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://basicenglishspeaking.com/wp-content/uploads/audio/QA/QA-01.mp3",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -100,
+        -220
+      ],
+      "id": "8f3271aa-e27b-4b9c-b15a-2642aeed226d",
+      "name": "Getting Audio File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Getting Audio File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getting Audio File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2d6f63ed-1dd9-4555-8716-e18f7062ca6b",
+  "meta": {
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "JLKnmacJxyQP3wJ7",
+  "tags": []
+}
