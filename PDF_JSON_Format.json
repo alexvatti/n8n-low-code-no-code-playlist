@@ -1,0 +1,158 @@
+{
+  "name": "PDF-JSON-Format",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Resume",
+        "formDescription": "Resume",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -340,
+        -80
+      ],
+      "id": "be258fea-af40-4d0c-ac8a-ec0d1c30ac1d",
+      "name": "On form submission",
+      "webhookId": "b6db91f2-b10b-4a60-a1ca-e99400e21360"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -80
+      ],
+      "id": "3cea6aa6-9384-40db-b426-133150791f8f",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "Extract the candidate’s full name, location, email, phone, total years of experience, current role, skills, education, and top 3 projects with technologies used and business impact, based on the provided resume. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        100,
+        -80
+      ],
+      "id": "cb2103b6-e554-4287-b604-53eebd2eef6a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        140
+      ],
+      "id": "3704e227-1458-4250-9b56-df0bfca9f2a8",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Dl6JBIeW22jd5S4q",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"fullName\": \"Alexander Reddy\",\n  \"location\": \"Hyderabad, India\",\n  \"email\": \"alexvatti@gmail.com\",\n  \"phone\": \"9566177461\",\n  \"totalExperienceYears\": 3.7,\n  \"currentRole\": \"Machine Learning Engineer at Qvantel\",\n  \"skills\": {\n    \"programming\": [\"Python\"],\n    \"dataManipulation\": [\"Pandas\", \"NumPy\"],\n    \"dataVisualization\": [\"Matplotlib\", \"Seaborn\"],\n    \"machineLearning\": [\"Scikit-learn\", \"XGBoost\"],\n    \"deepLearning\": [\"TensorFlow\", \"Keras\", \"PyTorch\"],\n    \"nlp\": [\"NLTK\", \"SpaCy\"],\n    \"imageProcessing\": [\"OpenCV\"],\n    \"deployment\": [\"Flask\", \"Streamlit\"],\n    \"cloud\": [\"AWS\", \"Azure\"],\n    \"database\": [\"SQL\"]\n  },\n  \"education\": [\n    {\n      \"institution\": \"National Institute of Technology, Warangal\",\n      \"location\": \"India\",\n      \"graduationMonth\": \"June\",\n      \"graduationYear\": 2004\n    }\n  ],\n  \"topProjects\": [\n    {\n      \"name\": \"Telecom Churn Analysis\",\n      \"technologiesUsed\": [\"Python\", \"Machine Learning\", \"Flask\", \"AWS\"],\n      \"businessImpact\": \"Conducted comprehensive data analysis leading to actionable insights and improved prediction accuracy by 20% with an AUC-ROC score of 0.85.\"\n    },\n    {\n      \"name\": \"Wound Images Classification\",\n      \"technologiesUsed\": [\"Python\", \"Deep Learning\", \"OpenCV\", \"Flask\", \"AWS\"],\n      \"businessImpact\": \"Developed a multi-class wound classifier that increased accuracy from 50% to 85%, significantly enhancing model training and generalization capabilities.\"\n    },\n    {\n      \"name\": \"RAG Chatbot\",\n      \"technologiesUsed\": [\"Gen AI\", \"Python\", \"Bert\", \"LangChain\", \"LLM\", \"Streamlit\", \"AWS\"],\n      \"businessImpact\": \"Improved the chatbot's ability to understand and respond to user queries, ensuring timely and accurate responses by integrating multiple data sources and implementing OCR technology.\"\n    }\n  ]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        280,
+        140
+      ],
+      "id": "5b926ff5-37e2-429e-af5d-7d8a51c3408a",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6a228b95-5152-4305-890b-6c7659679f00",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e58782b5204367a8457b49d5762da20b8be8c9bb248dfb7d3a3d6bf9816541fc"
+  },
+  "id": "vvnZOWZ3ANGVabxO",
+  "tags": []
+}
