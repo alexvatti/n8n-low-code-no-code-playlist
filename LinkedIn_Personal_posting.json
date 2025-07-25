@@ -1,0 +1,142 @@
+{
+  "name": "LinkedIn-Personal-posting",
+  "nodes": [
+    {
+      "parameters": {
+        "person": "iHDYVCvwL4",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        300,
+        -40
+      ],
+      "id": "92d419c4-5ccf-4ee5-9c43-a556d9339f10",
+      "name": "LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "lNNs6jqzOeY9HyRF",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Topic }}",
+        "options": {
+          "systemMessage": "Write a professional LinkedIn post (max 150 words) structured in 3 paragraphs with a clear hook, a concise body, and a compelling CTA (call-to-action) on {{ $json.Topic }} . The tone should be professional, authoritative, and engaging without using emojis. Ensure the opening line grabs attention, the body provides valuable insight or information, and the CTA encourages readers to connect, comment, or share. Keep the language simple yet impactful, and avoid fluff. The total word count should not exceed 150 words"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -40
+      ],
+      "id": "d35de997-8df1-4fbc-85ab-c91a626b16b4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -80,
+        140
+      ],
+      "id": "929ac811-692c-43ba-b825-600cff25c800",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bVFsi0rSVidDW73V",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Topic",
+        "formDescription": "Topic",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Topic"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        -40
+      ],
+      "id": "dae3ba0c-aa3b-4f1c-81f6-33469050b1e8",
+      "name": "On form submission",
+      "webhookId": "7d1cc91b-9e52-43df-8daf-a2d78ad63a7d"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "LinkedIn": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "deed8bdb-3322-4ffe-9fad-fad944ff40a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5510a4dce91400146b0925f523d14089d1608c24bf3fe459b847e391a0a61852"
+  },
+  "id": "7IPjanPUmZFvAXNe",
+  "tags": []
+}
