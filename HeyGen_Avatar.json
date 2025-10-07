@@ -1,0 +1,235 @@
+{
+  "name": "HeyGen-Avatar",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.heygen.com/v1/video_status.get",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "video_id",
+              "value": "={{ $('Avatar').item.json.data.video_id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        160
+      ],
+      "id": "2bea0b44-ca30-4fbf-858c-d6a2f1d68e3c",
+      "name": "Check Video Status",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uGovq88WeADh0QMK",
+          "name": "HeyGen"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3080a68d-9c97-472a-b0b6-812db200d98a",
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -360,
+        160
+      ],
+      "id": "2a80ceae-c22b-4872-b577-2dffd277d8d2",
+      "name": "If Completed"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.heygen.com/v2/video/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_inputs\": [\n    {\n      \"character\": {\n        \"type\": \"avatar\",\n        \"avatar_id\": \"b4d5fe66d41b40d798cbec5591fa90c8\",\n        \"avatar_style\": \"normal\"\n      },\n      \"voice\": {\n        \"type\": \"text\",\n        \"input_text\": \"{{ $json.Script }}\",\n        \"voice_id\": \"2fb87467593545f3bb00a902ae1b1ee6\",\n        \"speed\": 1.0\n      }\n    }\n  ],\n  \"dimension\": {\n    \"width\": 1280,\n    \"height\": 720\n  }\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -820,
+        160
+      ],
+      "id": "cadc0b0f-0047-41ab-8d57-c60e0de0ce32",
+      "name": "Avatar",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uGovq88WeADh0QMK",
+          "name": "HeyGen"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Check Video Status').item.json.data.video_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        140
+      ],
+      "id": "c66e4474-01aa-49e7-ab83-df991b12913f",
+      "name": "Video Download"
+    },
+    {
+      "parameters": {
+        "formTitle": "Video Script",
+        "formDescription": "Video Script",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Script",
+              "placeholder": "Script",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -980,
+        160
+      ],
+      "id": "e38036fe-b9b5-490a-8731-d88648a56f1c",
+      "name": "On form submission",
+      "webhookId": "64c02429-260b-4727-8a71-9a8f4345759b"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -680,
+        160
+      ],
+      "id": "284436ca-96ba-4cc7-a9b6-5fd3ec2d4a77",
+      "name": "Wait 2min",
+      "webhookId": "32d7ae4a-762f-4db2-bf35-b9d7dcc7f60f"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Check Video Status": {
+      "main": [
+        [
+          {
+            "node": "If Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Completed": {
+      "main": [
+        [
+          {
+            "node": "Video Download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avatar": {
+      "main": [
+        [
+          {
+            "node": "Wait 2min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Avatar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2min": {
+      "main": [
+        [
+          {
+            "node": "Check Video Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9447f2b4-a082-44a6-8287-e18782223d60",
+  "meta": {
+    "instanceId": "5510a4dce91400146b0925f523d14089d1608c24bf3fe459b847e391a0a61852"
+  },
+  "id": "F6YLBbEZjNlYbLdH",
+  "tags": []
+}
